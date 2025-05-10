@@ -20,3 +20,8 @@ services:
       - db
     environment:
       - FLASK_ENV=development
+
+  test:
+    build: .
+    container_name: test
+    command: pytest main/tests/.
