@@ -1,12 +1,39 @@
-# Sistema Hospitalar
-Trabalho da disciplina de Orientação a Objeto, do curso Eng. Software 2022-2 da Universidade de Brasília
+![image](https://github.com/user-attachments/assets/0d36f669-b42d-413d-8449-e7631989e57d)
 
-## Componentes
-211030756 - Gabriela Silva Alves <br />
-211039564 - Júlia Stefanie Santos Mendonça <br />
-211039617 - Maria Luísa Alves Rodrigues <br />
-200041606 - Marina Márcia Costa de Souza <br />
 
-## Descrição
-O projeto desenvolvido tem como objetivo um sistema hospitalar, que visa facilitar e agilizar o fornecimento e controle do atendimento ao público. É esperado que o sistema em questão seja usual a equipe de funcionários que participa de todas as etapas necessárias ao atendimento direto ao usuário do serviço público de saúde, do agendamento, consulta, e exames, ao acompanhamento geral da situação do usuário, sendo esperado como resultado protótipo de um sistema que auxilie em todas as etapas descritas anteriormente. 
+Este é um sistema de gerenciamento para uma clínica médica, desenvolvido em **Python com Flask**, que permite o controle de pacientes, agendamentos, exames, receitas, funcionários e atendimentos.
+
+---
+
+## 📌 Funcionalidades
+
+- Cadastro e autenticação de funcionários (administradores, médicos, enfermeiros, atendentes)
+- Cadastro de pacientes
+- Agendamento de consultas e exames
+- Emissão de receitas médicas
+- Triagem e atualização de prontuários
+
+---
+
+## ⚙️ Requisitos
+
+- [Python 3.10+](https://www.python.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+---
+
+## 💻 Executando o Projeto com Docker
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/clinicaMedica_TTPE.git
+cd clinicaMedica_TTPE
+
+# Construa a imagem e suba o container
+docker-compose up --build
+```
+A aplicação estará disponível em: http://localhost:5000
+
+
 
