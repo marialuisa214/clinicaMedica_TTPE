@@ -1,13 +1,13 @@
 FROM python:3.10-slim
 
-WORKDIR /app 
+WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
+COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main /app/main
+COPY . .
 
 EXPOSE 5000
 
-CMD ["python", "./main/server/server.py"]
+CMD ["uvicorn", "main.server.server:app", "--host", "0.0.0.0", "--port", "5000"]

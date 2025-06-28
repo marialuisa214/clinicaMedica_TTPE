@@ -1,27 +1,26 @@
-version: "3.7"
+version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    container_name: postgres-db-ttpe
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: ttpeclinic
-    ports:
-      - "5432:5432"
-
   web:
     build: .
-    container_name: flask-app
     ports:
       - "5000:5000"
+    environment:
+      - SECRET_KEY=chave_de_acesso
+      - SQLALCHEMY_DATABASE_URI=postgresql://admin:admin123@db:5432/ttpeClinic
     depends_on:
       - db
-    environment:
-      - FLASK_ENV=development
 
-  test:
-    build: .
-    container_name: test
-    command: pytest main/tests/.
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=ttpeClinic
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
