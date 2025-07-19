@@ -39,14 +39,14 @@ import {
 } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { apiService } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { ConsultaResponse, ConsultaUpdate, StatusConsulta } from '../../types';
 
-interface ConsultaFormData extends ConsultaUpdate {
+interface ConsultaFormData extends Omit<ConsultaUpdate, 'data_hora'> {
   data_hora?: Date;
 }
 
@@ -321,7 +321,7 @@ const AgendaPage: React.FC = () => {
                             size="small"
                             color="info"
                             title="Marcar como confirmada"
-                            onClick={() => handleQuickStatusChange(consulta, 'confirmada')}
+                            onClick={() => handleQuickStatusChange(consulta, StatusConsulta.CONFIRMADA)}
                           >
                             <CheckIcon />
                           </IconButton>
@@ -332,7 +332,7 @@ const AgendaPage: React.FC = () => {
                             size="small"
                             color="warning"
                             title="Iniciar consulta"
-                            onClick={() => handleQuickStatusChange(consulta, 'em_andamento')}
+                            onClick={() => handleQuickStatusChange(consulta, StatusConsulta.EM_ANDAMENTO)}
                           >
                             <StartIcon />
                           </IconButton>
@@ -343,7 +343,7 @@ const AgendaPage: React.FC = () => {
                             size="small"
                             color="success"
                             title="Finalizar consulta"
-                            onClick={() => handleQuickStatusChange(consulta, 'finalizada')}
+                            onClick={() => handleQuickStatusChange(consulta, StatusConsulta.FINALIZADA)}
                           >
                             <CheckIcon />
                           </IconButton>
@@ -354,7 +354,7 @@ const AgendaPage: React.FC = () => {
                             size="small"
                             color="error"
                             title="Cancelar consulta"
-                            onClick={() => handleQuickStatusChange(consulta, 'cancelada')}
+                            onClick={() => handleQuickStatusChange(consulta, StatusConsulta.CANCELADA)}
                           >
                             <CancelIcon />
                           </IconButton>
