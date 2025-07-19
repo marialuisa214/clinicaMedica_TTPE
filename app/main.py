@@ -16,21 +16,16 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Contexto de inicialização da aplicação
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
     logger.info("🚀 Inicializando aplicação...")
     
-    # Importar modelos para registrar no SQLAlchemy
     from app.models import funcionario, paciente, consulta
     
-    # Criar tabelas
     from app.core.database import Base
     Base.metadata.create_all(bind=engine)
     logger.info("📊 Tabelas criadas com sucesso!")
     
-    # Inicializar dados padrão
     try:
         init_database()
         logger.info("✅ Dados iniciais carregados!")
@@ -39,10 +34,7 @@ async def lifespan(app: FastAPI):
     
     yield
     
-    # Shutdown
     logger.info("🛑 Aplicação finalizada")
-
-# Criar aplicação FastAPI
 app = FastAPI(
     title=settings.project_name,
     version=settings.version,
@@ -53,7 +45,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -62,22 +53,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Trusted Host Middleware
 app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=["*"]
 )
 
-# Incluir rotas da API
 app.include_router(api_router, prefix=settings.api_v1_str)
 
-# Health check adicional na raiz
 @app.get("/health")
 def root_health_check():
     """Health check na raiz"""
     return {"status": "healthy", "message": "Clínica Médica API is running"}
-
-# Rota raiz
 @app.get("/")
 def read_root():
     """Rota raiz da API"""
